@@ -3,7 +3,7 @@ require 'httparty'
 require 'pry'
 require 'json'
 require 'digest'
-require_relative '../utils/common'
+require_relative '../utils/files'
 
 class Scraper
   attr_reader :name
@@ -47,6 +47,25 @@ class Scraper
     end
 
     results_list
+  end
+
+  def get_saved_results
+    results_file = FileContent.read(filename: 'zapping.json')
+    eval(results_file) if results_file
+  end
+
+  def get_updated_results
+    updated_results = {
+      last_updated: convert_string_to_iso_timestamp(Time.now.getlocal('+01:00')),
+      list: get_results_list
+    }
+
+    FileContent.save(
+      content: updated_results,
+      filename: 'zapping.json'
+    )
+
+    updated_results
   end
 
   private

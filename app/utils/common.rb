@@ -1,9 +1,8 @@
 def convert_string_to_iso_timestamp(date_time_string)
-    Time.parse(date_time_string).strftime('%Y-%m-%dT%H:%M:%S')
+    Time.parse(date_time_string.to_s).strftime('%Y-%m-%dT%H:%M:%S')
 end
 
 def get_translated_date(date)
-
     # get date day of the week
     day_of_week = date.split.first
 

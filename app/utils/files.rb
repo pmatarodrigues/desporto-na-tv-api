@@ -1,7 +1,7 @@
 class FileContent
     def self.save(content:, filename:)
         begin
-            File.open("output/" + filename, 'w') { |f| f.puts content }
+            File.open("./app/utils/" + filename, 'w') { |f| f.puts content }
         rescue => exception
             puts 'File does not exist. \n'
         end
@@ -9,7 +9,7 @@ class FileContent
 
     def self.read(filename:)
         begin
-            File.read("output/" + filename).strip
+            File.read("./app/utils/" + filename).strip
         rescue => exception
             puts 'File does not exist. \n'
         end
