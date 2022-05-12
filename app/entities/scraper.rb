@@ -25,7 +25,7 @@ class Scraper
   end
 
   def get_results_list
-    results_list = []
+    results_list = {}
 
     # Loop through each sport available
     parsed_page.css(aggregator_selectors[:sport]).each do |sport_section|
@@ -34,14 +34,16 @@ class Scraper
       # For each sport, get all available games
       results_by_section(sport_section).each do |result|
         date, time, home, away, tv, comp, country = get_single_result_data(result)
-        results_list.push({
+
+        results_list[sport_name] = [] if results_list[sport_name].nil?
+
+        results_list[sport_name].push({
           date: convert_string_to_iso_timestamp("#{get_translated_date(date)} 2022 #{time}"),
           home: home,
           away: away,
           tv: tv,
           comp: comp,
           country: country,
-          sport: sport_name
         })
       end
     end

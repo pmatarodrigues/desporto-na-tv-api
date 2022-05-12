@@ -7,4 +7,9 @@ class ApplicationController < ActionController::API
     render json: zapping_interactor.call
   end
 
+  def zapping_today
+    zapping_interactor = ZappingInteractor.new
+    render json: zapping_interactor.call(today: true)
+  end
+
 end
